@@ -1,0 +1,44 @@
+main .block-test {
+    display: grid;
+    grid-template-columns: 55% calc(45% - 16px);
+    grid-gap: 16px;
+}
+
+main .block-test .file-for-test {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+main .block-test .file-for-test button {
+    width: fit-content;
+}
+
+main .block-test .file-for-test .params-test {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+
+
+main .list-tests .block-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+main .list-dop-params .block-dop-params {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+main .list-dop-params .block-dop-params .text-field-dop-params {
+    width: 300px;
+}
+
+.result-tests {
+    margin-top: 32px;
+}

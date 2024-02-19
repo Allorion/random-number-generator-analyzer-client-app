@@ -1,0 +1,61 @@
+.panel {
+    border: 0 none;
+}
+
+.panel-default {
+    box-shadow: 0px 0px 5px rgb(0 0 0 / 20%);
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.panel-default > .panel-heading {
+    color: #000;
+}
+
+.panel-default > .panel-heading {
+    background-color: #F8F8F8;
+}
+
+.panel-heading {
+    padding: 10px 40px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+}
+
+.panel-body {
+    padding: 15px 40px;
+    width: auto;
+}
+
+.portlet-body .panel-title:last-child, .panel-group.panel-group-accordion .panel-title:last-child, .form-title:last-child {
+    margin-bottom: 0;
+}
+
+.panel-group.panel-group-accordion .panel-title, .portlet-body .panel-title {
+    font-size: 16px;
+}
+
+.portlet-body .panel-title, .panel-group.panel-group-accordion .panel-title, .form-title {
+    font-family: "SF UI Display", sans-serif;
+    line-height: 1.2;
+    color: inherit;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.panel-title {
+    font-size: 1em;
+    font-weight: 500;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}

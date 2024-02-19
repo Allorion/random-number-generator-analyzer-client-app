@@ -1,0 +1,50 @@
+.al-text-field-block {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 100%;
+}
+
+.al-text-field-block-label {
+    display: flex;
+    align-items: end;
+    position: relative;
+    height: 50px;
+}
+
+.al-text-field-input {
+    min-width: 200px;
+    border: 0;
+    border-bottom: solid 5px #656565;
+    font-size: 15pt;
+    outline: 0;
+    color: #656565;
+}
+
+.al-text-field-input:focus:focus-visible {
+    border: 0 !important;
+    border-bottom: solid 5px rgba(102, 177, 241, 0.8) !important;
+}
+
+.al-text-field-label {
+    position: absolute;
+    top: 20px;
+    font-size: 15pt;
+    color: #656565;
+}
+
+.al-text-field-input:not(:placeholder-shown) ~ label {
+    top: 0;
+    left: 0;
+    font-size: 10pt;
+    color: #656565;
+}
+
+.al-text-field-input:focus ~ label {
+    top: 0;
+    left: 0;
+    font-size: 10pt;
+    color: rgb(102, 177, 241);
+}
+
+

@@ -1,0 +1,54 @@
+.al-accordion {
+    height: fit-content;
+}
+
+.al-accordion-input {
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 5px 4px 5px rgb(0 0 0 / 30%);
+    border-radius: 30px;
+    border: solid 1px rgb(0 0 0 / 10%);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    gap: 24px;
+}
+
+.al-accordion-label-block {
+    color: #656565;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.al-accordion-right-block svg {
+    color: rgba(101, 101, 101, 0.58);
+    width: 25px;
+    height: 25px;
+}
+
+.al-accordion-block-content {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    transition-property: all, opacity;
+    transition-duration: .7s, .0s;
+    transition-delay: 0s, 0s;
+    transition-timing-function: linear, linear;
+}
+
+.al-accordion-block-content-active {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+    margin: 40px 30px;
+    border-left: solid 3px rgba(101, 101, 101, 0.58);
+    border-right: solid 3px rgba(101, 101, 101, 0.58);
+    padding: 20px;
+    transition-property: all, opacity, margin;
+    transition-duration: .2s, .7s;
+    transition-delay: 0s, 0s;
+    transition-timing-function: linear, linear;
+}

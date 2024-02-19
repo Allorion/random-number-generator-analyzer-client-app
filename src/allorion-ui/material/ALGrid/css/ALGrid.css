@@ -1,0 +1,179 @@
+@media (min-width: 1400px) {
+    .container-xs {
+        max-width: 1320px;
+    }
+
+    .container-sm {
+        max-width: 1320px;
+    }
+
+    .container-md {
+        max-width: 1320px;
+    }
+
+    .container-lg {
+        max-width: 1320px;
+    }
+
+    .container-xl {
+        max-width: 1320px;
+    }
+
+    .container-xxl {
+        max-width: 1320px;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+    .container-xs {
+        max-width: 1140px;
+    }
+
+    .container-sm {
+        max-width: 1140px;
+    }
+
+    .container-md {
+        max-width: 1140px;
+    }
+
+    .container-lg {
+        max-width: 1140px;
+    }
+
+    .container-xl {
+        max-width: 1140px;
+    }
+
+    .container-xxl {
+        max-width: 100%;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .container-xs {
+        max-width: 960px;
+    }
+
+    .container-sm {
+        max-width: 960px;
+    }
+
+    .container-md {
+        max-width: 960px;
+    }
+
+    .container-lg {
+        max-width: 960px;
+    }
+
+    .container-xl {
+        max-width: 100%;
+    }
+
+    .container-xxl {
+        max-width: 100%;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .container-xs {
+        max-width: 720px;
+    }
+
+    .container-sm {
+        max-width: 720px;
+    }
+
+    .container-md {
+        max-width: 720px;
+    }
+
+    .container-lg {
+        max-width: 100%;
+    }
+
+    .container-xl {
+        max-width: 100%;
+    }
+
+    .container-xxl {
+        max-width: 100%;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .container-xs {
+        max-width: 540px;
+    }
+
+    .container-sm {
+        max-width: 540px;
+    }
+
+    .container-md {
+        max-width: 100%;
+    }
+
+    .container-lg {
+        max-width: 100%;
+    }
+
+    .container-xl {
+        max-width: 100%;
+    }
+
+    .container-xxl {
+        max-width: 100%;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-xs {
+        max-width: 100%;
+    }
+
+    .container-sm {
+        max-width: 100%;
+    }
+
+    .container-md {
+        max-width: 100%;
+    }
+
+    .container-lg {
+        max-width: 100%;
+    }
+
+    .container-xl {
+        max-width: 100%;
+    }
+
+    .container-xxl {
+        max-width: 100%;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,9 @@
+.section-generator-bin-files {
+    padding: 24px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+}
