@@ -15,7 +15,7 @@ export const fetchDataAnalysisNistTests = createAsyncThunk(
             body: JSON.stringify(data)
         });
 
-        const json: IDataAnalysisNistTests[] = await response.json();
+        const json: IDataAnalysisNistTests[] | string[] = await response.json();
 
         return json
 

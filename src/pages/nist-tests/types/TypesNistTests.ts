@@ -13,12 +13,7 @@ export type INameTests =
     'randomExcursions' |
     'randomExcursionsVariant' |
     'serialTest' |
-    'linearComplexity' |
-    'universalStatisticalTest' |
-    'cumulativeSumsForwardTest' |
-    'cumulativeSumsBackwardTest' |
-    'randomExcursionTest' |
-    'randomExcursionVariantTest'
+    'linearComplexity'
 
 
 export type TNameDopParam = 
@@ -56,6 +51,12 @@ export interface ICombinePValue {
     runTest?: number,
     longestRunOfOnes?: number,
     rankTest?: number,
+
+    overlappingTemplateMatchings?: number,
+    universal?: number,
+    approximateEntropy?: number,
+    serialTest?: [number, number],
+    linearComplexity?: number,
 }
 
 interface IResFrequency {
@@ -140,6 +141,115 @@ interface IResCumulativeSumsBackwards {
     "warningRange": boolean
 }
 
+interface IOverlappingTemplateMatchings {
+    "warning": string | undefined,
+    "a": number | undefined,
+    "b": number | undefined,
+    "c": number | undefined,
+    "d": number | undefined,
+    "e": number | undefined,
+    "f": number | undefined,
+    "0": number | undefined,
+    "1": number | undefined,
+    "2": number | undefined,
+    "3": number | undefined,
+    "4": number | undefined,
+    "5": number | undefined,
+    "Chi^2": number | undefined,
+    "pValue": number,
+    "result": "FAILURE" | "SUCCESS",
+}
+
+interface IUniversal {
+    "warning": string | undefined,
+    "a": number | undefined,
+    "b": number | undefined,
+    "c": number | undefined,
+    "d": number | undefined,
+    "e": number | undefined,
+    "f": number | undefined,
+    "g": number | undefined,
+    "h": number | undefined,
+    "i": number | undefined,
+    "pValue": number,
+    "result": "FAILURE" | "SUCCESS",
+    error: string | null
+}
+
+interface IApproximateEntropy {
+    "warning": string | undefined,
+    "a": number | undefined,
+    "b": number | undefined,
+    "c": number | undefined,
+    "d": number | undefined,
+    "e": number | undefined,
+    "f": number | undefined,
+    "g": number | undefined,
+    "pValue": number,
+    "result": "FAILURE" | "SUCCESS",
+}
+
+interface IListResultRandomExcursions {
+    "x": number,
+    "chi^2": number,
+    "pValue": number,
+    "result": "FAILURE" | "SUCCESS",
+    warning: string | undefined,
+}
+
+interface IRandomExcursions {
+    "warning": string | undefined,
+    "a": number | undefined,
+    "b": number | undefined,
+    "c": number | undefined,
+    'listResult': IListResultRandomExcursions[],
+}
+
+interface IListResultRandomExcursionsVariant {
+    "x": number,
+    "visits": number,
+    "pValue": number,
+    "result": "FAILURE" | "SUCCESS",
+    warning: string | undefined,
+}
+
+interface IRandomExcursionsVariant {
+    "warning": string | undefined,
+    "a": number | undefined,
+    "b": number | undefined,
+    'listResult': IListResultRandomExcursionsVariant[],
+}
+
+interface ISerialTest {
+    "warning": string | undefined,
+    "a": number | undefined,
+    "b": number | undefined,
+    "c": number | undefined,
+    "d": number | undefined,
+    "e": number | undefined,
+    "f": number | undefined,
+    "g": number | undefined,
+    "pValue": [number, number],
+    "result": ["FAILURE" | "SUCCESS", "FAILURE" | "SUCCESS"],
+}
+
+interface ILinearComplexity {
+    "M": number,
+    "N": number,
+    "C0": number,
+    "C1": number,
+    "C2": number,
+    "C3": number,
+    "C4": number,
+    "C5": number,
+    "C6": number,
+    "CHI2": number,
+    "bits": number,
+    "pValue": number,
+    "result": "FAILURE" | "SUCCESS",
+    "warning": string | undefined,
+}
+
 export interface IDataAnalysisNistTests {
     nameFile: string,
     listTests: INameTests[],
@@ -156,6 +266,14 @@ export interface IDataAnalysisNistTests {
     runTest?: Array<IResRunsTest | string>,
     longestRunOfOnes?: Array<IResLongestRunOfOnes | string>,
     rankTest?: Array<IResRankTest | string>,
+
+    overlappingTemplateMatchings?: Array<IOverlappingTemplateMatchings | string>,
+    universal?: Array<IUniversal | string>,
+    approximateEntropy?: Array<IApproximateEntropy | string>,
+    randomExcursions?: Array<IRandomExcursions | string>,
+    randomExcursionsVariant?: Array<IRandomExcursionsVariant | string>,
+    serialTest?: Array<ISerialTest | string>,
+    linearComplexity?: Array<ILinearComplexity | string>,
     combinePValue: ICombinePValue,
-    uid: string
+    uid: string,
 }

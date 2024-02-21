@@ -5,7 +5,7 @@ import {generateUniqueId} from "../../global-elements/functions/generateUniqueId
 const defaultData: IGeneratorAnalysisFilterData = {
     nameFile: '#null',
     listTests: [],
-    alpha: 0.1,
+    alpha: 0.05,
     dopParams: {
         bftParam: undefined,
         nottParam: undefined,
@@ -87,12 +87,10 @@ export const generatorAnalysisFilterDataSlice = createSlice({
             type: string
         }) {
 
-            let legacyData: any = {}
-
             generatorAnalysisFilterDataAdapter.updateOne(state, {
                 id: action.payload.uid,
                 changes: {
-                    dopParams: Object.assign({}, legacyData, {[action.payload.nameParam]: action.payload.data})
+                    dopParams: Object.assign({}, state.entities[action.payload.uid].dopParams, {[action.payload.nameParam]: action.payload.data})
                 }
             })
         }

@@ -52,6 +52,12 @@ const GeneratorAnalysis: FC<IProps> = ({}) => {
         }
     }
 
+    const {errorList, loading} = useAppSelector(state => state.dataAnalysisNistTestsReducer)
+
+    useEffect(() => {
+        if (errorList?.length > 0) alert('- ' + errorList.join('\n - '))
+    }, [errorList]);
+
     return (
         <React.Fragment>
             <header>
@@ -81,8 +87,19 @@ const GeneratorAnalysis: FC<IProps> = ({}) => {
                                 {opt.listTests.find(opt => {
                                     if (opt === 'blockFrequency') {
                                         return opt
+                                    } else if (opt === 'rankTest') {
+                                        return opt
+                                    } else if (opt === 'overlappingTemplateMatchings') {
+                                        return opt
+                                    } else if (opt === 'approximateEntropy') {
+                                        return opt
+                                    } else if (opt === 'serialTest') {
+                                        return opt
+                                    } else if (opt === 'linearComplexity') {
+                                        return opt
+                                    } else {
+                                        return undefined
                                     }
-                                    return undefined
                                 }) !== undefined && <ListDopParams idEl={opt.uid}/>}
                             </AccordionDetails>
                         </Accordion>
