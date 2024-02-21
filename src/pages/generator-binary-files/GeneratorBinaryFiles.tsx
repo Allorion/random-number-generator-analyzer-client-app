@@ -107,12 +107,12 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
                         <h3></h3>
                         <input
                             disabled={method === "#null"}
-                            placeholder={'Укажите длину последовательности длиной не более 1 миллиарда и кратное 10'}
+                            placeholder={'Укажите длину последовательности длиной не более 10 миллиардов и кратное 10'}
                             type={"number"}
                             onBlur={(e) => {
                                 if (e.target.value !== '') {
                                     const num = +e.target.value
-                                    if (num <= 1000000000) {
+                                    if (num <= 10000000000) {
                                         if (num % 100000 === 0) {
                                             setMtgLength(num)
                                         } else {
