@@ -16,6 +16,7 @@ import {
 import {htmlString} from "../../../../allorion-ui/function-elements/alExportTableToExcel/dop-function/htmlString";
 import {IRespDataStackOfBooks} from "../../types/TypesStackOfBooks";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import StackOfBooksChartsAnalysis from "./StackOfBooksChartsAnalysis";
 
 interface IProps {
 
@@ -48,7 +49,7 @@ const StackOfBooksResultAnalysis: FC<IProps> = ({}) => {
                             <TableCell>Число степеней свободы (n)</TableCell>
                             <TableCell>Частота группы (frequencies)</TableCell>
                             <TableCell>Основной результат прохождения теста</TableCell>
-                            <TableCell>p_value</TableCell>
+                            <TableCell>pValue</TableCell>
                             <TableCell>По результату p_value</TableCell>
                         </TableRow>
                     </TableHead>
@@ -68,7 +69,7 @@ const StackOfBooksResultAnalysis: FC<IProps> = ({}) => {
                                         <TableCell>{indexEl + 1}</TableCell>
                                         <TableCell>{el.chi}</TableCell>
                                         <TableCell>{el.df}</TableCell>
-                                        <TableCell>{el.frequencies.join(', ')}</TableCell>
+                                        <TableCell>{el.frequencies.slice(0, 30).join(', ')}{el.frequencies.length > 30 ? '...' : ''}</TableCell>
                                         <TableCell>{el.passed ? 'Тест пройден' : 'Тест не пройден'}</TableCell>
                                         <TableCell>{el.pValue}</TableCell>
                                         <TableCell>{el.resultPValue === 'SUCCESS' ? 'Тест пройден' : 'Тест не пройден'}</TableCell>
@@ -137,6 +138,17 @@ const StackOfBooksResultAnalysis: FC<IProps> = ({}) => {
                         )
                     })}
                 </div>
+            </ALPaper>
+            <ALPaper label={'Графики по результатам выполнения тестов'}>
+                {selectStackOfBooksResult.map((opt, index) => {
+                    return (
+                        <ALPaper label={`Результат тестирования последовательности ${opt.nameFile}`}>
+                            <div style={{width: "auto", height: 400}}>
+                                <StackOfBooksChartsAnalysis data={opt}/>
+                            </div>
+                        </ALPaper>
+                    )
+                })}
             </ALPaper>
         </React.Fragment>
     )

@@ -5,6 +5,11 @@ interface IProps {
 
 }
 
+interface IReqData {
+    "status": number,
+    "text": string,
+    "method": string
+}
 
 type tpMethod = 'mtg' | 'mathRandGen' | 'cryptoSequence' | '#null'
 
@@ -60,7 +65,7 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
                 "frequency": frequency
             }
 
-            await fetch(`http://localhost:3001/api/binary-sequence-generation/${urlMethod}`, {
+            return await fetch(`http://localhost:3001/api/binary-sequence-generation/${urlMethod}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json; charset=utf-8'
@@ -71,8 +76,8 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
 
 
         fetchGenerationBinaryFile()
-            .then(resp => {
-                console.log(resp)
+            .then((resp) => {
+                alert('Выполнено')
             })
             .finally(() => {
                 setGeneration({...generation, flag: false})
