@@ -13,7 +13,6 @@ const NavBar: FC<IProps> = ({}) => {
     const [url, setUrl] = useState<string[]>(['', ''])
 
     useEffect(() => {
-        console.log(location.pathname.split('/'))
         setUrl(location.pathname.split('/'))
     }, [location]);
 
@@ -24,7 +23,7 @@ const NavBar: FC<IProps> = ({}) => {
                     to={'/'}
                     className={`nav-link ${url[1] === '' ? 'active' : ''}`}
                 >
-                    <b>ALLORION-NIST-TESTS</b>
+                    <b>ALLORION Analyzer Random Generator</b>
                 </Link>
                 <Link
                     to={'/generator-binary-files/'}
@@ -46,6 +45,25 @@ const NavBar: FC<IProps> = ({}) => {
                             to={'/nist-tests/generator-analysis/'}
                         >
                             <li className={`${`${url[1]}-${url[2]}` === 'nist-tests-generator-analysis' ? 'active' : ''}`}>
+                                Анализ генератора
+                            </li>
+                        </Link>
+                    </ul>
+                </div>
+                <div className={`nav-link ${url[1] === 'stack-of-books' ? 'active' : ''} dropdown`}>
+                    Статистический тест "Стопка книг"
+                    <ul className={'nav-link-dropdown'}>
+                        <Link
+                            to={'/stack-of-books/home/'}
+                        >
+                            <li className={`${`${url[1]}-${url[2]}` === 'stack-of-books-home' ? 'active' : ''}`}>
+                                "Стопка книг"
+                            </li>
+                        </Link>
+                        <Link
+                            to={'/stack-of-books/generator-analysis/'}
+                        >
+                            <li className={`${`${url[1]}-${url[2]}` === 'stack-of-books-generator-analysis' ? 'active' : ''}`}>
                                 Анализ генератора
                             </li>
                         </Link>

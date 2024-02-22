@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, useState} from "react";
-import {ALPaper} from "../../../../../allorion-ui";
+import {ALPaper} from "../../../allorion-ui";
 import {
     Button,
     MenuItem,
@@ -12,26 +12,40 @@ import {
     TableRow,
     TextField
 } from "@mui/material";
-import {useAppDispatch, useAppSelector} from "../../../../../store/hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks/redux";
 import {
+    editAlphaGenAnal,
     genAnalEditBitstreams,
     genAnalEditFile,
     genAnalEditNumberOfBits,
     genAnalSelectById
-} from "../../../reducers/GeneratorAnalysisSlice";
+} from "../../nist-tests/reducers/GeneratorAnalysisSlice";
 import {
     selectAllFilesBinarySequence
-} from "../../../../global-elements/api-requests/list-files-binary-sequence/reducers/ListFilesBinarySequenceSlice";
+} from "../api-requests/list-files-binary-sequence/reducers/ListFilesBinarySequenceSlice";
+import {
+    editAlphaStackOfBooks,
+    editBitstreamsStackOfBooks, editBlockSizeStackOfBooks, editFileStackOfBooks, editNumberOfBitsStackOfBooks,
+    selectByIdStackOfBooks
+} from "../../stack-of-books-test/reducers/StackOfBooksGenAnalysisSlice";
 
 interface IProps {
-    idEl: string
+    idEl: string,
+    flag: 'nist' | 'stackOfBooks'
 }
 
-const FileForTest: FC<IProps> = ({idEl}) => {
+const FileForTest: FC<IProps> = ({idEl, flag}) => {
 
-    const genAnalElement = useAppSelector(state => genAnalSelectById(state, idEl))
+    const genAnalElementNist = useAppSelector(state => genAnalSelectById(state, idEl))
+    const genAnalElementStackOfBooks = useAppSelector(state => selectByIdStackOfBooks(state, idEl))
+    const genAnalElement = flag === 'nist' ? genAnalElementNist : genAnalElementStackOfBooks
 
     const [selectFile, setSelectFile] = useState<string | '#null'>(genAnalElement === undefined ? '#null' : genAnalElement.nameFile)
+
+    const editBitstreams = flag === 'nist' ? genAnalEditBitstreams : editBitstreamsStackOfBooks
+    const editFile = flag === 'nist' ? genAnalEditFile : editFileStackOfBooks
+    const editNumberOfBits = flag === 'nist' ? genAnalEditNumberOfBits : editNumberOfBitsStackOfBooks
+    const editAlpha = flag === 'nist' ? editAlphaGenAnal : editAlphaStackOfBooks
 
     const {loading} = useAppSelector(state => state.dataListFilesBinarySequenceReducer)
 
@@ -44,14 +58,14 @@ const FileForTest: FC<IProps> = ({idEl}) => {
     }
 
     const handleEditFile = () => {
-        dispatch(genAnalEditFile({uid: idEl, fileName: selectFile}))
+        dispatch(editFile({uid: idEl, fileName: selectFile}))
     }
 
     const handleNumberOfBits = (e: ChangeEvent<HTMLInputElement>) => {
 
         let event = +e.target.value
 
-        dispatch(genAnalEditNumberOfBits({
+        dispatch(editNumberOfBits({
             uid: idEl,
             numberOfBits: event
         }))
@@ -63,7 +77,7 @@ const FileForTest: FC<IProps> = ({idEl}) => {
 
         if (data !== undefined) {
             if (data < 100000 || data > 1000000 || data === null) {
-                dispatch(genAnalEditNumberOfBits({
+                dispatch(editNumberOfBits({
                     uid: idEl,
                     numberOfBits: 100000
                 }))
@@ -75,7 +89,7 @@ const FileForTest: FC<IProps> = ({idEl}) => {
 
         let event = +e.target.value
 
-        dispatch(genAnalEditBitstreams({
+        dispatch(editBitstreams({
             uid: idEl,
             bitstreams: event
         }))
@@ -86,10 +100,59 @@ const FileForTest: FC<IProps> = ({idEl}) => {
         const data = genAnalElement!.bitstreams
 
         if (data !== undefined) {
-            if (data < 1 || data > 20 || data === null) {
-                dispatch(genAnalEditBitstreams({
+            if (data < 1 || data > 100 || data === null) {
+                dispatch(editBitstreams({
                     uid: idEl,
                     bitstreams: 10
+                }))
+            }
+        }
+    }
+
+    const handleBlockSize = (e: ChangeEvent<HTMLInputElement>) => {
+
+        let event = +e.target.value
+
+        dispatch(editBlockSizeStackOfBooks({
+            uid: idEl,
+            blockSize: event
+        }))
+    }
+
+    const handleCheckBlockSize = () => {
+
+        //@ts-ignore
+        const data = genAnalElement!.blockSize
+
+        if (data !== undefined) {
+            if (data < 2 || data > 10 || data === null) {
+                dispatch(editBlockSizeStackOfBooks({
+                    uid: idEl,
+                    blockSize: 2
+                }))
+            }
+        }
+    }
+
+    const handleEditAlpha = (e: ChangeEvent<HTMLInputElement>) => {
+
+        let event = +e.target.value
+
+        dispatch(editAlpha({
+            uid: idEl,
+            alpha: event
+        }))
+    }
+
+    const handleCheckAlpha = () => {
+
+        const data = genAnalElement!.alpha
+
+        if (data !== undefined) {
+            if (data < 0.01 || data > 0.1 || data === null) {
+                dispatch(editAlpha({
+                    uid: idEl,
+                    alpha: 0.05
                 }))
             }
         }
@@ -163,7 +226,30 @@ const FileForTest: FC<IProps> = ({idEl}) => {
                                     value={genAnalElement.bitstreams}
                                     onChange={handleBitstreams}
                                     onBlur={handleCheckBitstreams}
-                                    helperText={'Не менее 1 и не более 20'}
+                                    helperText={'Не менее 1 и не более 100'}
+                                />
+                                {flag === 'stackOfBooks' &&
+                                    <TextField
+                                        fullWidth={true}
+                                        type={'number'}
+                                        label={'Длина блока'}
+                                        placeholder={'2'}
+                                        //@ts-ignore
+                                        value={genAnalElement.blockSize}
+                                        onChange={handleBlockSize}
+                                        onBlur={handleCheckBlockSize}
+                                        helperText={'Не менее 2 и не более 10'}
+                                    />
+                                }
+                                <TextField
+                                    fullWidth={true}
+                                    type={'number'}
+                                    label={'Alpha'}
+                                    placeholder={'0.05'}
+                                    value={genAnalElement.alpha}
+                                    onChange={handleEditAlpha}
+                                    onBlur={handleCheckAlpha}
+                                    helperText={'Не менее 0.01 и не более 0.1'}
                                 />
                             </div>
                         </>

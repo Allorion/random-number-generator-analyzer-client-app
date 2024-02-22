@@ -35,6 +35,9 @@ export const generatorAnalysisFilterDataSlice = createSlice({
         delData(state, action) {
             generatorAnalysisFilterDataAdapter.removeOne(state, action.payload)
         },
+        delDataAll(state) {
+            generatorAnalysisFilterDataAdapter.removeAll(state)
+        },
         editFile(state, action: { payload: { uid: string, fileName: string }, type: string }) {
             generatorAnalysisFilterDataAdapter.updateOne(state, {
                 id: action.payload.uid,
@@ -48,6 +51,14 @@ export const generatorAnalysisFilterDataSlice = createSlice({
                 id: action.payload.uid,
                 changes: {
                     numberOfBits: action.payload.numberOfBits,
+                }
+            })
+        },
+        editAlpha(state, action: { payload: { uid: string, alpha: number }, type: string }) {
+            generatorAnalysisFilterDataAdapter.updateOne(state, {
+                id: action.payload.uid,
+                changes: {
+                    alpha: action.payload.alpha,
                 }
             })
         },
@@ -100,7 +111,10 @@ export const generatorAnalysisFilterDataSlice = createSlice({
 
 export const {
     addNewData: genAnalAddNewData,
+    delData: delDataGenAnal,
+    delDataAll: delDataAllGenAnal,
     editFile: genAnalEditFile,
+    editAlpha: editAlphaGenAnal,
     editNumberOfBits: genAnalEditNumberOfBits,
     editBitstreams: genAnalEditBitstreams,
     updateListTests: genAnalUpdateListTests,

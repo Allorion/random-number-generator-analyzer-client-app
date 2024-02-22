@@ -1,6 +1,6 @@
 import {createEntityAdapter, createSlice, SerializedError} from "@reduxjs/toolkit";
-import {IDataAnalysisNistTests} from "../types/TypesNistTests";
-import {fetchDataAnalysisNistTests} from "../api-requests/ACDataAnalysisNistTests";
+import {IRespDataStackOfBooks} from "../types/TypesStackOfBooks";
+import {fetchDataAnalysisStackOfBooks} from "../api/ACDataAnalysisStackOfBooks";
 
 interface IInitialState {
     loading: 'idle' | 'pending',
@@ -15,44 +15,42 @@ const initialState = {
     noData: false,
 } as IInitialState
 
-const dataAnalysisNistTestsAdapter = createEntityAdapter({
-    selectId: (model: IDataAnalysisNistTests) => model.uid
+
+const stackOfBooksResultDataAdapter = createEntityAdapter({
+    selectId: (model: IRespDataStackOfBooks) => model.uid
 })
 
-export const dataAnalysisNistTestsSlice = createSlice({
-    name: 'dataAnalysisNistTestsSlice',
-    initialState: dataAnalysisNistTestsAdapter.getInitialState(initialState),
+export const stackOfBooksResultDataSlicer = createSlice({
+    name: 'stackOfBooksResultDataSlicer',
+    initialState: stackOfBooksResultDataAdapter.getInitialState(initialState),
     reducers: {
         delAllData(state) {
-            dataAnalysisNistTestsAdapter.removeAll(state)
+            stackOfBooksResultDataAdapter.removeAll(state)
         }
     },
     extraReducers: builder => {
         builder
-            .addCase(fetchDataAnalysisNistTests.pending, (state) => {
+            .addCase(fetchDataAnalysisStackOfBooks.pending, (state) => {
                 if (state.loading === 'idle') {
                     state.loading = 'pending'
                 }
             })
-            .addCase(fetchDataAnalysisNistTests.fulfilled, (state, action) => {
+            .addCase(fetchDataAnalysisStackOfBooks.fulfilled, (state, action) => {
                 if (state.loading === 'pending') {
-
                     if (action.payload[0] !== undefined && typeof action.payload[0] !== "string") {
                         state.errorList = []
                         if (action.payload.length === 0) {
                             state.noData = true
                         }
                         //@ts-ignore
-                        dataAnalysisNistTestsAdapter.setAll(state, action.payload)
+                        stackOfBooksResultDataAdapter.setAll(state, action.payload)
                     } else {
                         //@ts-ignore
                         state.errorList = action.payload
                     }
-
-                    state.loading = 'idle'
                 }
             })
-            .addCase(fetchDataAnalysisNistTests.rejected, (state, action) => {
+            .addCase(fetchDataAnalysisStackOfBooks.rejected, (state, action) => {
                 if (state.loading === 'pending') {
                     state.loading = 'idle'
                     state.error = action.error
@@ -62,12 +60,12 @@ export const dataAnalysisNistTestsSlice = createSlice({
 })
 
 export const {
-    delAllData: delAllDataNistTestsResult
-} = dataAnalysisNistTestsSlice.actions
+    delAllData: delAllDataStackOfBooksResultTests
+} = stackOfBooksResultDataSlicer.actions
 
 export const {
-    selectAll: selectAllDataAnalysisNistTests
+    selectAll: selectAllStackOfBooksResult
     //@ts-ignore
-} = dataAnalysisNistTestsAdapter.getSelectors(state => state.dataAnalysisNistTestsReducer)
+} = stackOfBooksResultDataAdapter.getSelectors(state => state.stackOfBooksResultDataReducer)
 
-export default dataAnalysisNistTestsSlice.reducer
+export default stackOfBooksResultDataSlicer.reducer

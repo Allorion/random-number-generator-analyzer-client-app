@@ -4,6 +4,7 @@ import Home from "./pages/home/Home";
 import GeneratorBinaryFiles from "./pages/generator-binary-files/GeneratorBinaryFiles";
 import NavBar from "./pages/global-elements/components/nav-bar/NavBar";
 import {NistTestUrl} from "./pages/nist-tests/NistTestUrl";
+import {StackOfBooksTestUrls} from "./pages/stack-of-books-test/StackOfBooksTestUrls";
 
 const ListRoutes: FC = ({}) => {
 
@@ -26,6 +27,13 @@ const ListRoutes: FC = ({}) => {
 
                     {/* Модуль тестов NIST */}
                     {NistTestUrl.data.map((entry) => {
+                        return (
+                            <Route {...entry}/>
+                        )
+                    })}
+
+                    {/* Модуль теста "Стопка книг" */}
+                    {StackOfBooksTestUrls.data.map((entry) => {
                         return (
                             <Route {...entry}/>
                         )

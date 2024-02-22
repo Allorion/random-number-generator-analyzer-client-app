@@ -598,7 +598,7 @@ class TSZipSupport {
 		// * know the BlobBuilder (but with prefix)
 		// * know the Blob constructor
 		// * know about Blob but not about how to build them
-		// About the "=== 0" test : if given the wrong type, it may be converted to a string.
+		// About the "=== 0" test : if given the wrong types, it may be converted to a string.
 		// Instead of an empty content, we will get "[object Uint8Array]" for example.
 		if (typeof ArrayBuffer === "undefined") {
 			return false;

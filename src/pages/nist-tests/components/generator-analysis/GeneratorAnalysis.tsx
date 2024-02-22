@@ -8,16 +8,16 @@ import {
     Button,
     Typography
 } from "@mui/material";
-import FileForTest from "./components/FileForTest";
+import FileForTest from "../../../global-elements/components/FileForTest";
 import ListTests from "./components/ListTests";
 import {useAppDispatch, useAppSelector} from "../../../../store/hooks/redux";
-import {genAnalAddNewData, genAnalSelectAll} from "../../reducers/GeneratorAnalysisSlice";
+import {delDataAllGenAnal, genAnalAddNewData, genAnalSelectAll} from "../../reducers/GeneratorAnalysisSlice";
 import {
     fetchListFilesBinarySequence
 } from "../../../global-elements/api-requests/list-files-binary-sequence/api-requests/ACListFilesBinarySequence";
 import ListDopParams from "./components/ListDopParams";
 import {fetchDataAnalysisNistTests} from "../../api-requests/ACDataAnalysisNistTests";
-import {selectAllDataAnalysisNistTests} from "../../reducers/DataAnalysisNistTestsSlice";
+import {delAllDataNistTestsResult, selectAllDataAnalysisNistTests} from "../../reducers/DataAnalysisNistTestsSlice";
 import ResultTests from "./components/ResultTests";
 
 interface IProps {
@@ -58,6 +58,13 @@ const GeneratorAnalysis: FC<IProps> = ({}) => {
         if (errorList?.length > 0) alert('- ' + errorList.join('\n - '))
     }, [errorList]);
 
+    useEffect(() => {
+        return function cleanup() {
+            dispatch(delDataAllGenAnal())
+            dispatch(delAllDataNistTestsResult())
+        };
+    }, [])
+
     return (
         <React.Fragment>
             <header>
@@ -82,7 +89,7 @@ const GeneratorAnalysis: FC<IProps> = ({}) => {
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails className={'block-test'}>
-                                <FileForTest idEl={opt.uid}/>
+                                <FileForTest idEl={opt.uid} flag={'nist'}/>
                                 {opt.nameFile !== "#null" && <ListTests idEl={opt.uid}/>}
                                 {opt.listTests.find(opt => {
                                     if (opt === 'blockFrequency') {

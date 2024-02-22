@@ -651,7 +651,7 @@ class XLSXStyle{
 	}
 
 	getHashFill(){
-		let str = this.fill.patternType + 'type;';
+		let str = this.fill.patternType + 'types;';
 		return cyrb53(str);
 	}
 
@@ -670,7 +670,7 @@ class XLSXStyle{
 		str += this.border.bottom[1] + 'color;';
 		str += this.border.diagonal[0] + 'st;';
 		str += this.border.diagonal[1] + 'color;';
-		str += this.fill.patternType + 'type;';
+		str += this.fill.patternType + 'types;';
 		str += this.numFmtId + 'num;';
 		let hor = this.alignment.horizontal !== null? this.alignment.horizontal : 'null';
 		str += hor + 'hor;';
@@ -898,7 +898,7 @@ class RenderXLXS {
 	createXMLCore(creator){
 		let file = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">`;
 		file += '<dc:creator>' + creator + '</dc:creator>';
-		file += '<dcterms:created xsi:type="dcterms:W3CDTF">' + getDateW3CDTF() + '</dcterms:created>';
+		file += '<dcterms:created xsi:types="dcterms:W3CDTF">' + getDateW3CDTF() + '</dcterms:created>';
 		file += '</cp:coreProperties>';
 		return file;
 	}
