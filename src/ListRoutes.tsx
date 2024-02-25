@@ -5,6 +5,9 @@ import GeneratorBinaryFiles from "./pages/generator-binary-files/GeneratorBinary
 import NavBar from "./pages/global-elements/components/nav-bar/NavBar";
 import {NistTestUrl} from "./pages/nist-tests/NistTestUrl";
 import {StackOfBooksTestUrls} from "./pages/stack-of-books-test/StackOfBooksTestUrls";
+import GraphicalDistributionTestOnPlaneHome
+    from "./pages/graphical-distribution-test-on-a-plane/GraphicalDistributionTestOnPlaneHome";
+import {GraphDistributionTestUrl} from "./pages/graphical-distribution-test-on-a-plane/GraphDistributionTestUrl";
 
 const ListRoutes: FC = ({}) => {
 
@@ -24,7 +27,6 @@ const ListRoutes: FC = ({}) => {
                         element={<GeneratorBinaryFiles/>}
                     />
 
-
                     {/* Модуль тестов NIST */}
                     {NistTestUrl.data.map((entry) => {
                         return (
@@ -34,6 +36,13 @@ const ListRoutes: FC = ({}) => {
 
                     {/* Модуль теста "Стопка книг" */}
                     {StackOfBooksTestUrls.data.map((entry) => {
+                        return (
+                            <Route {...entry}/>
+                        )
+                    })}
+
+                    {/* Модуль теста "Распределение на плоскости" */}
+                    {GraphDistributionTestUrl.data.map((entry) => {
                         return (
                             <Route {...entry}/>
                         )

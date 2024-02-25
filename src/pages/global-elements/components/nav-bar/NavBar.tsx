@@ -69,6 +69,25 @@ const NavBar: FC<IProps> = ({}) => {
                         </Link>
                     </ul>
                 </div>
+                <div className={`nav-link ${url[1] === 'stack-of-books' ? 'active' : ''} dropdown`}>
+                    Графический тест "Распределение на плоскости"
+                    <ul className={'nav-link-dropdown'}>
+                        <Link
+                            to={'/graph-distribution-test/home/'}
+                        >
+                            <li className={`${`${url[1]}-${url[2]}` === 'stack-of-books-home' ? 'active' : ''}`}>
+                                "Распределение на плоскости"
+                            </li>
+                        </Link>
+                        <Link
+                            to={'/graph-distribution-test/generator-analysis/'}
+                        >
+                            <li className={`${`${url[1]}-${url[2]}` === 'stack-of-books-generator-analysis' ? 'active' : ''}`}>
+                                Анализ генератора
+                            </li>
+                        </Link>
+                    </ul>
+                </div>
             </nav>
         </React.Fragment>
     )
