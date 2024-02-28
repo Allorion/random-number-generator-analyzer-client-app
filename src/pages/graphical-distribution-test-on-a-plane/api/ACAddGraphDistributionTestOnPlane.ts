@@ -3,13 +3,14 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 interface IProps {
     "nameFile": string,
     "bitCount": number,
-    "zoom": number
+    "zoom": number,
+    bitFlag: boolean,
 }
 
 export const fetchAddGraphDistributionTestOnPlane = createAsyncThunk(
     'fetchAddGraphDistributionTestOnPlane',
     async (data: IProps) => {
-        console.log(data)
+
         let url = 'http://localhost:3001/api/graph-distribution-test-on-a-plane/start-analysis'
 
         let response = await fetch(url, {
@@ -20,9 +21,11 @@ export const fetchAddGraphDistributionTestOnPlane = createAsyncThunk(
             body: JSON.stringify(data)
         });
 
-        const json: Blob = await response.blob();
+        const status = await response.status
 
-        return {blob: json, nameFile: data.nameFile}
+        const respData: string | string[] = status === 200 ? URL.createObjectURL(await response.blob()) : await response.json();
+
+        return {respData: respData, nameFile: data.nameFile}
 
     }
 )

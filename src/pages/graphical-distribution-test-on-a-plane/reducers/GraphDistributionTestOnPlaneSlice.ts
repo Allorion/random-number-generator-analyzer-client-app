@@ -43,20 +43,21 @@ export const graphDistributionTestOnPlaneSlice = createSlice({
                 }
             })
             .addCase(fetchAddGraphDistributionTestOnPlane.fulfilled, (state, action: {
-                payload: { blob: Blob | string[], nameFile: string }
+                payload: { respData: string | string[], nameFile: string }
             }) => {
                 if (state.loading === 'pending') {
 
-                    if (!Array.isArray(action.payload.blob)) {
+                    const data = action.payload.respData
+
+                    if (typeof data === 'string') {
                         // Создаем URL-адрес для данных картинки
-                        const imageUrl = URL.createObjectURL(action.payload.blob);
                         graphDistributionTestOnPlaneAdapter.addOne(state, {
-                            img: imageUrl,
+                            img: data,
                             uid: generateUniqueID(),
                             nameFile: action.payload.nameFile
                         })
                     } else {
-                        alert(action.payload.blob.join('\n - '))
+                        alert(data.join('\n - '))
                     }
 
                     state.loading = 'idle'

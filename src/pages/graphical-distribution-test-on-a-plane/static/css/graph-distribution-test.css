@@ -20,3 +20,7 @@
     align-items: center;
     gap: 24px;
 }
+
+.analysis-graph-distr-plane .block-result .bloc-img img {
+    max-width: 512px;
+}
