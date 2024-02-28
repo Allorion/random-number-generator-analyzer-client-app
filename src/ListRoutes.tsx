@@ -8,6 +8,7 @@ import {StackOfBooksTestUrls} from "./pages/stack-of-books-test/StackOfBooksTest
 import GraphicalDistributionTestOnPlaneHome
     from "./pages/graphical-distribution-test-on-a-plane/GraphicalDistributionTestOnPlaneHome";
 import {GraphDistributionTestUrl} from "./pages/graphical-distribution-test-on-a-plane/GraphDistributionTestUrl";
+import {CountRepeatsTest} from "./pages/count-repeats-test/CountRepeatsTestUrl";
 
 const ListRoutes: FC = ({}) => {
 
@@ -43,6 +44,13 @@ const ListRoutes: FC = ({}) => {
 
                     {/* Модуль теста "Распределение на плоскости" */}
                     {GraphDistributionTestUrl.data.map((entry) => {
+                        return (
+                            <Route {...entry}/>
+                        )
+                    })}
+
+                    {/* Модуль теста "Подсчет повторения байт" */}
+                    {CountRepeatsTest.data.map((entry) => {
                         return (
                             <Route {...entry}/>
                         )

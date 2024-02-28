@@ -1,0 +1,17 @@
+.count-repeats-test .block-filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+}
+
+.count-repeats-test .block-result {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.count-repeats-test .block-result .count-repeats-chart {
+    width: 100%;
+    height: 400px;
+}

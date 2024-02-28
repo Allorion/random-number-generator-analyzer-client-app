@@ -9,12 +9,14 @@ import dataListFilesBinarySequenceReducer
 import {nistTestsStore} from "../pages/nist-tests/store/nistTestsStore";
 import {stackOfBooksTestsStore} from "../pages/stack-of-books-test/store/stackOfBooksTestsStore";
 import graphDistributionTestOnPlaneReducer from "../pages/graphical-distribution-test-on-a-plane/reducers/GraphDistributionTestOnPlaneSlice";
+import countRepeatsTestReducer from "../pages/count-repeats-test/reducers/CountRepeatsTestSlice";
 
 
 const obj = Object.assign(
     {
         dataListFilesBinarySequenceReducer,
-        graphDistributionTestOnPlaneReducer
+        graphDistributionTestOnPlaneReducer,
+        countRepeatsTestReducer
     },
     nistTestsStore,
     stackOfBooksTestsStore

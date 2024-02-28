@@ -69,20 +69,39 @@ const NavBar: FC<IProps> = ({}) => {
                         </Link>
                     </ul>
                 </div>
-                <div className={`nav-link ${url[1] === 'stack-of-books' ? 'active' : ''} dropdown`}>
+                <div className={`nav-link ${url[1] === 'graph-distribution-test' ? 'active' : ''} dropdown`}>
                     Графический тест "Распределение на плоскости"
                     <ul className={'nav-link-dropdown'}>
                         <Link
                             to={'/graph-distribution-test/home/'}
                         >
-                            <li className={`${`${url[1]}-${url[2]}` === 'stack-of-books-home' ? 'active' : ''}`}>
+                            <li className={`${`${url[1]}-${url[2]}` === 'graph-distribution-test-home' ? 'active' : ''}`}>
                                 "Распределение на плоскости"
                             </li>
                         </Link>
                         <Link
                             to={'/graph-distribution-test/generator-analysis/'}
                         >
-                            <li className={`${`${url[1]}-${url[2]}` === 'stack-of-books-generator-analysis' ? 'active' : ''}`}>
+                            <li className={`${`${url[1]}-${url[2]}` === 'graph-distribution-test-generator-analysis' ? 'active' : ''}`}>
+                                Анализ генератора
+                            </li>
+                        </Link>
+                    </ul>
+                </div>
+                <div className={`nav-link ${url[1] === 'count-repeats' ? 'active' : ''} dropdown`}>
+                    Тест "Подсчет повторения байт"
+                    <ul className={'nav-link-dropdown'}>
+                        <Link
+                            to={'/count-repeats-test/home/'}
+                        >
+                            <li className={`${`${url[1]}-${url[2]}` === 'count-repeats-home' ? 'active' : ''}`}>
+                                "Подсчет повторения байт"
+                            </li>
+                        </Link>
+                        <Link
+                            to={'/count-repeats-test/generator-analysis/'}
+                        >
+                            <li className={`${`${url[1]}-${url[2]}` === 'count-repeats-generator-analysis' ? 'active' : ''}`}>
                                 Анализ генератора
                             </li>
                         </Link>
