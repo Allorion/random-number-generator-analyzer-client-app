@@ -52,6 +52,37 @@ p.gost {
     margin-bottom: 0.5cm; /* отступ снизу */
 }
 
+p.formula {
+    margin: 1cm 0; /* отступы сверху и снизу */
+    font-family: "Times New Roman", serif; /* тип шрифта */
+    font-size: 14pt; /* размер шрифта */
+    overflow-wrap: break-word; /* перенос длинных слов */
+    white-space: pre-wrap;
+    word-break: break-all; /* перенос длинных слов */
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: center;
+}
+
+p.formula::after {
+    content: " (" attr(data-number) ")"; /* добавление номера формулы из атрибута */
+    display: inline-block; /* блочно-строчный элемент */
+    font-size: 12pt; /* размер шрифта для номера формулы */
+}
+
+pre.gost, code.gost {
+    font-family: Times New Roman, serif; /* шрифт по умолчанию */
+    font-size: 14pt; /* размер шрифта */
+    line-height: 1.5; /* межстрочный интервал */
+    text-align: justify; /* выравнивание по ширине */
+    text-indent: 1.25cm; /* отступ первой строки абзаца */
+    margin-top: 0; /* отступ сверху */
+    margin-bottom: 0.5cm; /* отступ снизу */
+    word-break: break-all; /* перенос длинных слов */
+}
+
 span.gost {
     font-family: Times New Roman, serif; /* шрифт по умолчанию */
     font-size: 14pt; /* размер шрифта */
@@ -90,27 +121,28 @@ ul.gost li.gost:before {
     content: "— "; /* маркер элементов неупорядоченного списка */
 }
 
-table {
+table.gost {
     width: 100%; /* ширина таблицы */
     border-collapse: collapse; /* схлопывание границ */
     font-family: Times New Roman, serif; /* шрифт по умолчанию */
     font-size: 14pt; /* размер шрифта */
     margin-top: 1cm;
     margin-bottom: 1cm;
+    white-space: normal; /* перенос длинных слов */
 }
 
-th, td {
+th.gost, td.gost {
     border: 1px solid black !important; /* граница ячеек */
     padding: 0.5cm; /* отступ внутри ячеек */
     text-align: center; /* выравнивание текста по центру */
 }
 
-th {
+th.gost {
     font-weight: bold; /* жирность шрифта */
     vertical-align: middle; /* вертикальное выравнивание по середине */
 }
 
-caption {
+caption.gost {
     caption-side: bottom; /* расположение заголовка снизу */
     font-style: italic; /* курсивный шрифт */
     margin-top: 0.5cm; /* отступ сверху */

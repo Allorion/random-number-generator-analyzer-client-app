@@ -7,7 +7,7 @@ function GraphicalDisTableRowibutionTestOnPlaneHome() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const formula = '<math><mi>X</mi><mo>=</mo><mi>Y</mi><mo>=</mo><msqrt><mtext>длина проверяемой битовой последовательности</mtext></msqrt></math>'
+        const formula = '<math><mi>X</mi><mo>=</mo><mi>Y</mi><mo>=</mo><msqrt><mtext>длина проверяемой битовой последовательности,</mtext></msqrt></math>'
 
         const el = window.document.getElementById('calculation-formula-XY')
 
@@ -73,17 +73,17 @@ function GraphicalDisTableRowibutionTestOnPlaneHome() {
                             </li>
                             <li className={'gost'}>Выбрать один из двух режимов работы:</li>
                         </ol>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell><span className={'gost bold'}>Режим</span></TableCell>
-                                    <TableCell><span className={'gost bold'}>Описание</span></TableCell>
+                        <Table className={'gost'}>
+                            <TableHead className={'gost'}>
+                                <TableRow className={'gost'}>
+                                    <TableCell className={'gost'}><span className={'gost bold'}>Режим</span></TableCell>
+                                    <TableCell className={'gost'}><span className={'gost bold'}>Описание</span></TableCell>
                                 </TableRow>
                             </TableHead>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell><span className={'gost bold'}>Анализ байтов</span></TableCell>
-                                    <TableCell>
+                            <TableBody className={'gost'}>
+                                <TableRow className={'gost'}>
+                                    <TableCell className={'gost'}><span className={'gost bold'}>Анализ байтов</span></TableCell>
+                                    <TableCell className={'gost'}>
                                         <p className={'gost'}>
                                             В режиме анализа байтов битовая последовательность преобразуется в массив
                                             байт, каждый байт
@@ -103,14 +103,11 @@ function GraphicalDisTableRowibutionTestOnPlaneHome() {
                                         </p>
                                     </TableCell>
                                 </TableRow>
-                                <TableRow>
-                                    <TableCell><span className={'gost bold'}>Анализ битов</span></TableCell>
-                                    <TableCell>
+                                <TableRow className={'gost'}>
+                                    <TableCell className={'gost'}><span className={'gost bold'}>Анализ битов</span></TableCell>
+                                    <TableCell className={'gost'}>
                                         <p className={'gost'}>В данном режиме размер графика определяется согласно формуле:</p>
-                                        <p className={'gost'} style={{ display: "flex", justifyContent: 'center', height: '27px' }}>
-                                            <p className={'gost'} id={'calculation-formula-XY'}/>
-                                            <span className={'gost'}>(1)</span>
-                                        </p>
+                                        <p className={'gost formula'} id={'calculation-formula-XY'} data-number="1"/>
                                         <p className={'gost'}>
                                             <span className={'gost bold'}>
                                                 * В случае, если число получается не целым, то округление производится в меньшую
