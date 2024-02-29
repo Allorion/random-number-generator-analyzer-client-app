@@ -3,8 +3,8 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 interface IProps {
     "nameFile": string,
     "bitCount": number,
-    "zoom": number,
     bitFlag: boolean,
+    fillingDensity: boolean,
 }
 
 export const fetchAddGraphDistributionTestOnPlane = createAsyncThunk(
@@ -21,7 +21,7 @@ export const fetchAddGraphDistributionTestOnPlane = createAsyncThunk(
             body: JSON.stringify(data)
         });
 
-        const status = await response.status
+        const status = response.status
 
         const respData: string | string[] = status === 200 ? URL.createObjectURL(await response.blob()) : await response.json();
 

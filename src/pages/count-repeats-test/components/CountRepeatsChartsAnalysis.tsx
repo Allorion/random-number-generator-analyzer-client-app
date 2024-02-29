@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { IDataResultCountRepeatsTest } from "../reducers/CountRepeatsTestSlice";
+import React, {FC} from "react";
+import {IDataResultCountRepeatsTest} from "../reducers/CountRepeatsTestSlice";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -8,9 +8,10 @@ import {
     LineElement,
     Title,
     Tooltip,
-    Legend,
+    Legend, BarElement,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
+import {Line} from "react-chartjs-2";
+import {Bar} from "react-chartjs-2";
 import zoomPlugin from 'chartjs-plugin-zoom';
 
 ChartJS.register(
@@ -18,6 +19,7 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
@@ -25,11 +27,12 @@ ChartJS.register(
 )
 
 interface IProps {
-    data: IDataResultCountRepeatsTest;
+    data: IDataResultCountRepeatsTest,
+    flag: 'Bar' | 'Line'
 }
 
-const CountRepeatsChartsAnalysis: FC<IProps> = ({ data }) => {
-    const coors: { x: number[]; y: number[] } = { x: [], y: [] };
+const CountRepeatsChartsAnalysis: FC<IProps> = ({data, flag}) => {
+    const coors: { x: number[]; y: number[] } = {x: [], y: []};
 
     Object.entries(data.result).forEach(([key, value]) => {
         coors.x.push(+key);
@@ -37,17 +40,31 @@ const CountRepeatsChartsAnalysis: FC<IProps> = ({ data }) => {
     });
 
     // Создаем объект с данными для графика
-    const dataChart = {
+    const dataChart: {
+        labels: number[],
+        datasets: {
+            label: string,
+            data: number[]
+            borderColor?: string,
+            pointBackgroundColor?: string,
+            backgroundColor?: string,
+        }[]
+    } = {
         labels: coors.x, // Массив с данными для x
         datasets: [
             {
                 label: `График последовательности ${data.nameFile}`, // Название графика
                 data: coors.y, // Массив с данными для y
-                borderColor: "#257493", // Цвет линии графика
-                pointBackgroundColor: "white", // Цвет точек графика
             },
         ],
     };
+
+    if (flag === 'Line') {
+        dataChart.datasets[0].borderColor = "#257493" // Цвет линии графика
+        dataChart.datasets[0].pointBackgroundColor = "white" // Цвет точек графика
+    } else {
+        dataChart.datasets[0].backgroundColor = "#257493" // Цвет столбцов графика
+    }
 
     // Создаем объект с опциями для графика
     const options = {
@@ -82,7 +99,7 @@ const CountRepeatsChartsAnalysis: FC<IProps> = ({ data }) => {
     };
 
     //@ts-ignore
-    return <Line data={dataChart} options={options}/>;
+    return flag === 'Line' ? <Line data={dataChart} options={options}/> : <Bar data={dataChart} options={options}/>;
 };
 
 export default CountRepeatsChartsAnalysis;

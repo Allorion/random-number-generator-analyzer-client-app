@@ -46,8 +46,8 @@ const GraphicalDistributionTestOnPlaneAnalysis: FC<IProps> = ({}) => {
 
     const [selectFile, setSelectFile] = useState<string | '#null'>('#null')
     const [bitCount, setBitCount] = useState<number>(100000)
-    const [zoom, setZoom] = useState<number>(1)
     const [bitFlag, setBitFlag] = useState<boolean>(false)
+    const [fillingDensity, setFillingDensity] = useState<boolean>(false)
 
     const {loading} = useAppSelector(state => state.dataListFilesBinarySequenceReducer)
 
@@ -70,9 +70,6 @@ const GraphicalDistributionTestOnPlaneAnalysis: FC<IProps> = ({}) => {
         if (bitCount < 100 || bitCount > 100000000) {
             warning.push('- Длина бит должна быть больше или равна 100 и меньше либо равна 100млн')
         }
-        if (!bitFlag && zoom < 0 && bitCount > 4) {
-            warning.push('- Увеличение должно быть больше 0 и меньше либо равно 4')
-        }
 
         if (warning.length > 0) {
             alert(warning.join('\n'))
@@ -80,9 +77,9 @@ const GraphicalDistributionTestOnPlaneAnalysis: FC<IProps> = ({}) => {
         } else {
             dispatch(fetchAddGraphDistributionTestOnPlane({
                 nameFile: selectFile,
-                bitCount: bitCount,
-                zoom: zoom,
-                bitFlag: bitFlag
+                bitCount,
+                bitFlag,
+                fillingDensity,
             }))
         }
 
@@ -97,29 +94,20 @@ const GraphicalDistributionTestOnPlaneAnalysis: FC<IProps> = ({}) => {
         const num = e.target.value
 
         if (checkStrIsNum(num)) {
-            if (+num > 100000000) {
-                setBitCount(100000000)
-            } else if (+num < 100) {
-                setBitCount(100)
-            } else {
-                setBitCount(+num)
-            }
+            setBitCount(+num)
         }
     }
 
-    const handleZoomChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-
-        const num = e.target.value
-
-        if (checkStrIsNum(num)) {
-            if (+num > 4) {
-                setZoom(4)
-            } else if (+num < 1) {
-                setZoom(1)
-            } else {
-                setZoom(+num)
-            }
+    const handleBlurLengthBitChange = () => {
+        if (+bitCount > 100000000) {
+            setBitCount(100000000)
+        } else if (+bitCount < 100) {
+            setBitCount(100)
         }
+    }
+
+    const handleFillingDensity = () => {
+        setFillingDensity(!fillingDensity)
     }
 
     const handleBitFlag = () => {
@@ -152,27 +140,30 @@ const GraphicalDistributionTestOnPlaneAnalysis: FC<IProps> = ({}) => {
                             value={bitCount}
                             onChange={handleLengthBitChange}
                             helperText={'от 100 до 100млн'}
+                            onBlur={handleBlurLengthBitChange}
                         />
                         <FormGroup>
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        checked={bitFlag}
-                                        onClick={handleBitFlag}
+                                        checked={fillingDensity}
+                                        onClick={handleFillingDensity}
                                     />
                                 }
-                                label="Побитовый анализ"
+                                label="Учитывать плотность заполнения"
                             />
+                            {!fillingDensity &&
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={bitFlag}
+                                            onClick={handleBitFlag}
+                                        />
+                                    }
+                                    label="Побитовый анализ"
+                                />
+                            }
                         </FormGroup>
-                        {!bitFlag &&
-                            <TextField
-                                type={'text'}
-                                label={'Расстояние между точками на графике'}
-                                value={zoom}
-                                onChange={handleZoomChange}
-                                helperText={'От 1 до 4. Чем больше последовательность тем больше расстояни. 1 = квадрату 256х256'}
-                            />
-                        }
                         <Button
                             disabled={selectFile === '#null'}
                             color={'success'}

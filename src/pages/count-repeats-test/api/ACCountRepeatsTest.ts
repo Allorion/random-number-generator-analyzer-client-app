@@ -4,6 +4,7 @@ import {IDataResultCountRepeatsTest} from "../reducers/CountRepeatsTestSlice";
 interface IProps {
     "nameFile": string,
     "byteCount": number,
+    calculationAccordingLawDistribution: boolean
 }
 
 export const fetchCountRepeatsTest = createAsyncThunk(

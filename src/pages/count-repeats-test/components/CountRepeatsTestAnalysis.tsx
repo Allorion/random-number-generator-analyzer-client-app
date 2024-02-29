@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import {ALPaper} from "../../../allorion-ui";
-import {Button, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
+import {Button, Checkbox, FormControlLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField} from "@mui/material";
 import {
     fetchListFilesBinarySequence
 } from "../../global-elements/api-requests/list-files-binary-sequence/api-requests/ACListFilesBinarySequence";
@@ -11,6 +11,7 @@ import {
 import {checkStrIsNum} from "../../global-elements/functions/checkStrIsNum";
 import {fetchCountRepeatsTest} from "../api/ACCountRepeatsTest";
 import {
+    editFlagCountRepeatsTest,
     removeAllCountRepeatsTest,
     removeOneCountRepeatsTest,
     selectAllCountRepeatsTest
@@ -33,6 +34,7 @@ const CountRepeatsTestAnalysis: FC<IProps> = ({}) => {
 
     const [selectFile, setSelectFile] = useState<string | '#null'>('#null')
     const [byteCount, setByteCount] = useState<number>(100000)
+    const [calculationAccordingLawDistribution, setCalculationAccordingLawDistribution] = useState<boolean>(false)
 
 
     const filesBinarySequence: string[] = useAppSelector(selectAllFilesBinarySequence)
@@ -60,9 +62,17 @@ const CountRepeatsTestAnalysis: FC<IProps> = ({}) => {
             alert(warning.join('\n'))
             return
         } else {
-            dispatch(fetchCountRepeatsTest({nameFile: selectFile, byteCount}))
+            dispatch(fetchCountRepeatsTest({nameFile: selectFile, byteCount, calculationAccordingLawDistribution}))
         }
 
+    }
+
+    const handleCalculationAccordingLawDistribution = () => {
+        setCalculationAccordingLawDistribution(!calculationAccordingLawDistribution)
+    }
+
+    const handleEditFlagChart = (id: string, flag: 'Line' | 'Bar') => {
+        dispatch(editFlagCountRepeatsTest({ id, flag }))
     }
 
     const handleLengthBitChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -70,13 +80,15 @@ const CountRepeatsTestAnalysis: FC<IProps> = ({}) => {
         const num: string = e.target.value
 
         if (checkStrIsNum(num)) {
-            if (+num > 125000000) {
-                setByteCount(125000000)
-            } else if (+num < 1) {
-                setByteCount(1)
-            } else {
-                setByteCount(+num)
-            }
+            setByteCount(+num)
+        }
+    }
+
+    const handleBlurLengthBitChange = () => {
+        if (+byteCount > 125000000) {
+            setByteCount(125000000)
+        } else if (+byteCount < 1) {
+            setByteCount(1)
         }
     }
 
@@ -84,10 +96,11 @@ const CountRepeatsTestAnalysis: FC<IProps> = ({}) => {
         dispatch(removeOneCountRepeatsTest(uid))
     }
 
+
     return (
         <React.Fragment>
             <header>
-                <h1>Анализ сгенерированной последовательности с помощью теста "Подсчет повторений байт"</h1>
+                <h1>Анализ сгенерированной последовательности с помощью теста "Подсчет байтов"</h1>
             </header>
             <main className={'count-repeats-test'}>
                 <ALPaper label={'Выбор файла для проверки'}>
@@ -109,7 +122,17 @@ const CountRepeatsTestAnalysis: FC<IProps> = ({}) => {
                             label={'Длина проверяемой битовой последовательности'}
                             value={byteCount}
                             onChange={handleLengthBitChange}
-                            helperText={'от 100 до 100млн'}
+                            helperText={'от 1 до 125млн'}
+                            onBlur={handleBlurLengthBitChange}
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    onClick={handleCalculationAccordingLawDistribution}
+                                    checked={calculationAccordingLawDistribution}
+                                />
+                            }
+                            label={'Тест на распределение'}
                         />
                         <Button
                             disabled={selectFile === '#null'}
@@ -125,11 +148,23 @@ const CountRepeatsTestAnalysis: FC<IProps> = ({}) => {
                     {allCountRepeatsTest.length > 0 &&
                         allCountRepeatsTest.map((opt, index) => {
                             return (
-                                <ALPaper key={index} label={`Анализируемая последовательность ${opt.nameFile}`}>
-                                    <Button color={'error'} onClick={() => deleteGraph(opt.uid)}>Удалить график</Button>
-                                        <div className={'count-repeats-chart'}>
-                                            <CountRepeatsChartsAnalysis data={opt}/>
-                                        </div>
+                                <ALPaper key={index}
+                                         label={`Анализируемая последовательность ${opt.nameFile} ${opt.calculationAccordingLawDistribution ? '(Тест на распределение)' : ''}`}>
+                                    <Stack direction={'column'} spacing={2}>
+                                        <Button color={'error'} onClick={() => deleteGraph(opt.uid)}>Удалить график</Button>
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    onClick={() => handleEditFlagChart(opt.uid, opt.flag === 'Bar' ? 'Line' : 'Bar')}
+                                                    checked={opt.flag === 'Line'}
+                                                />
+                                            }
+                                            label={'Точечная диаграмма'}
+                                        />
+                                    </Stack>
+                                    <div className={'count-repeats-chart'}>
+                                        <CountRepeatsChartsAnalysis data={opt} flag={opt.flag}/>
+                                    </div>
                                 </ALPaper>
                             )
                         })

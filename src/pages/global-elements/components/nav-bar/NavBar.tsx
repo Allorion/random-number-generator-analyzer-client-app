@@ -89,13 +89,13 @@ const NavBar: FC<IProps> = ({}) => {
                     </ul>
                 </div>
                 <div className={`nav-link ${url[1] === 'count-repeats' ? 'active' : ''} dropdown`}>
-                    Тест "Подсчет повторения байт"
+                    Тест "Подсчет байтов"
                     <ul className={'nav-link-dropdown'}>
                         <Link
                             to={'/count-repeats-test/home/'}
                         >
                             <li className={`${`${url[1]}-${url[2]}` === 'count-repeats-home' ? 'active' : ''}`}>
-                                "Подсчет повторения байт"
+                                "Подсчет байтов"
                             </li>
                         </Link>
                         <Link

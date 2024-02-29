@@ -6,6 +6,8 @@ export interface IDataResultCountRepeatsTest {
     result: Record<number, number>,
     nameFile: string,
     uid: string,
+    calculationAccordingLawDistribution: boolean,
+    flag: 'Line' | 'Bar'
 }
 
 interface IInitialState {
@@ -34,6 +36,16 @@ export const countRepeatsTestSlice = createSlice({
         removeOne(state, action) {
             countRepeatsTestAdapter.removeOne(state, action.payload)
         },
+        editFlag(state, action: { payload: { id: string, flag: 'Line' | 'Bar' }, type: string }) {
+            console.log(state)
+            console.log(action.payload.id)
+            countRepeatsTestAdapter.updateOne(state, {
+                id: action.payload.id,
+                changes: {
+                    flag: action.payload.flag
+                }
+            })
+        }
     },
     extraReducers: builder => {
         builder
@@ -53,7 +65,10 @@ export const countRepeatsTestSlice = createSlice({
                     if (Array.isArray(data)) {
                         alert(data.join('\n - '))
                     } else {
-                        countRepeatsTestAdapter.addOne(state, Object.assign({}, data, {uid: generateUniqueID()}))
+                        countRepeatsTestAdapter.addOne(state, Object.assign({}, data, {
+                            uid: generateUniqueID(),
+                            flag: 'Bar'
+                        }))
                     }
 
                     state.loading = 'idle'
@@ -71,6 +86,7 @@ export const countRepeatsTestSlice = createSlice({
 export const {
     removeAll: removeAllCountRepeatsTest,
     removeOne: removeOneCountRepeatsTest,
+    editFlag: editFlagCountRepeatsTest,
 } = countRepeatsTestSlice.actions
 
 export const {
