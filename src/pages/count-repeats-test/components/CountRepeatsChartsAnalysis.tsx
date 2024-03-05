@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import {IDataResultCountRepeatsTest} from "../reducers/CountRepeatsTestSlice";
 import {
     Chart as ChartJS,
@@ -13,6 +13,7 @@ import {
 import {Line} from "react-chartjs-2";
 import {Bar} from "react-chartjs-2";
 import zoomPlugin from 'chartjs-plugin-zoom';
+import {Button, Stack, TextField} from "@mui/material";
 
 ChartJS.register(
     CategoryScale,
@@ -32,12 +33,61 @@ interface IProps {
 }
 
 const CountRepeatsChartsAnalysis: FC<IProps> = ({data, flag}) => {
-    const coors: { x: number[]; y: number[] } = {x: [], y: []};
 
-    Object.entries(data.result).forEach(([key, value]) => {
-        coors.x.push(+key);
-        coors.y.push(value);
-    });
+
+    const calculate = (data: IDataResultCountRepeatsTest, step: number, setCoords: React.Dispatch<React.SetStateAction<{
+        x: number[],
+        y: number[]
+    }>>) => {
+        const coords: { x: number[]; y: number[] } = {x: [], y: []}
+
+        // Initialize the starting point and the step size
+        let startPoint = +Object.keys(data.result)[0];
+        let endPoint = startPoint + step;
+
+        // Iterate over the result object and calculate the sum for each range
+        Object.entries(data.result).forEach(([key, value]) => {
+            const keyNum = parseInt(key);
+            // Check if the key is within the current range
+            if (keyNum >= startPoint && keyNum < endPoint) {
+                // If it is, add the value to the current y coordinate
+                if (coords.x.includes(startPoint)) {
+                    coords.y[coords.x.indexOf(startPoint)] += value;
+                } else {
+                    // If this is the first value in the range, add the x and y coordinates
+                    coords.x.push(startPoint);
+                    coords.y.push(value);
+                }
+            } else {
+                // If the key is outside the current range, move to the next range
+                while (keyNum >= endPoint) {
+                    startPoint += step;
+                    endPoint += step;
+                }
+                // Add the new range and value
+                coords.x.push(startPoint);
+                coords.y.push(value);
+            }
+        });
+        setCoords(coords)
+    }
+
+    const [coords, setCoords] = useState<{ x: number[]; y: number[] }>({x: [], y: []})
+
+    const step = useRef<number>(10)
+
+    useEffect(() => {
+        if (data.calculationAccordingLawDistribution) {
+            calculate(data, step.current, setCoords)
+        } else {
+            const listCoords: { x: number[]; y: number[] } = {x: [], y: []}
+            Object.entries(data.result).forEach(([key, value]) => {
+                listCoords.x.push(+key);
+                listCoords.y.push(value);
+            });
+            setCoords(listCoords)
+        }
+    }, []);
 
     // Создаем объект с данными для графика
     const dataChart: {
@@ -50,11 +100,11 @@ const CountRepeatsChartsAnalysis: FC<IProps> = ({data, flag}) => {
             backgroundColor?: string,
         }[]
     } = {
-        labels: coors.x, // Массив с данными для x
+        labels: coords.x, // Массив с данными для x
         datasets: [
             {
                 label: `График последовательности ${data.nameFile}`, // Название графика
-                data: coors.y, // Массив с данными для y
+                data: coords.y, // Массив с данными для y
             },
         ],
     };
@@ -98,8 +148,41 @@ const CountRepeatsChartsAnalysis: FC<IProps> = ({data, flag}) => {
         aspectRatio: 4, // Устанавливаем отношение ширины к высоте графика
     };
 
-    //@ts-ignore
-    return flag === 'Line' ? <Line data={dataChart} options={options}/> : <Bar data={dataChart} options={options}/>;
+    const handelEditStep = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const data = e.target.value
+        if (!Number.isNaN(data)) {
+            step.current = +data
+        }
+    }
+
+    const handleCalculate = () => {
+        calculate(data, step.current, setCoords)
+    }
+
+    return (
+        <React.Fragment>
+            <Stack direction={'column'} spacing={2}>
+                {data.calculationAccordingLawDistribution &&
+                    <Stack direction={'column'} spacing={2}>
+                        <TextField
+                            sx={{width: 200}}
+                            label={'Шаг'}
+                            onChange={handelEditStep}
+                        />
+                        <Button
+                            onClick={handleCalculate}
+                        >
+                            Перерисовать с учетом нового шага
+                        </Button>
+                    </Stack>
+                }
+                {/*@ts-ignore*/}
+                {flag === 'Line' ? <Line data={dataChart} options={options}/> :
+                    //@ts-ignore
+                    <Bar data={dataChart} options={options}/>}
+            </Stack>
+        </React.Fragment>
+    )
 };
 
 export default CountRepeatsChartsAnalysis;

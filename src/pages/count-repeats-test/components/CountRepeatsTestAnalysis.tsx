@@ -150,20 +150,22 @@ const CountRepeatsTestAnalysis: FC<IProps> = ({}) => {
                             return (
                                 <ALPaper key={index}
                                          label={`Анализируемая последовательность ${opt.nameFile} ${opt.calculationAccordingLawDistribution ? '(Тест на распределение)' : ''}`}>
-                                    <Stack direction={'column'} spacing={2}>
-                                        <Button color={'error'} onClick={() => deleteGraph(opt.uid)}>Удалить график</Button>
-                                        <FormControlLabel
-                                            control={
-                                                <Checkbox
-                                                    onClick={() => handleEditFlagChart(opt.uid, opt.flag === 'Bar' ? 'Line' : 'Bar')}
-                                                    checked={opt.flag === 'Line'}
-                                                />
-                                            }
-                                            label={'Точечная диаграмма'}
-                                        />
-                                    </Stack>
-                                    <div className={'count-repeats-chart'}>
-                                        <CountRepeatsChartsAnalysis data={opt} flag={opt.flag}/>
+                                    <div style={{height: 620}}>
+                                        <Stack direction={'column'} spacing={2}>
+                                            <Button color={'error'} onClick={() => deleteGraph(opt.uid)}>Удалить график</Button>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        onClick={() => handleEditFlagChart(opt.uid, opt.flag === 'Bar' ? 'Line' : 'Bar')}
+                                                        checked={opt.flag === 'Line'}
+                                                    />
+                                                }
+                                                label={'Точечная диаграмма'}
+                                            />
+                                        </Stack>
+                                        <div className={'count-repeats-chart'}>
+                                            <CountRepeatsChartsAnalysis data={opt} flag={opt.flag}/>
+                                        </div>
                                     </div>
                                 </ALPaper>
                             )
