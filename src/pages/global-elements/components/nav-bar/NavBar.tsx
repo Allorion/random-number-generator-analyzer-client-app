@@ -23,7 +23,7 @@ const NavBar: FC<IProps> = ({}) => {
                     to={'/'}
                     className={`nav-link ${url[1] === '' ? 'active' : ''}`}
                 >
-                    <b>ALLORION Analyzer Random Generator</b>
+                    <b>RandStat</b>
                 </Link>
                 <Link
                     to={'/generator-binary-files/'}

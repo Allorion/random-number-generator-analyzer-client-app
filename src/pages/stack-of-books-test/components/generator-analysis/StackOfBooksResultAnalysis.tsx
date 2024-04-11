@@ -47,6 +47,7 @@ const StackOfBooksResultAnalysis: FC<IProps> = ({}) => {
                             <TableCell>№ п/п</TableCell>
                             <TableCell>Статистика хи-квадрат (chi)</TableCell>
                             <TableCell>Число степеней свободы (n)</TableCell>
+                            <TableCell>Критическое значение хи-квадрат</TableCell>
                             <TableCell>Частота группы (frequencies)</TableCell>
                             <TableCell>Основной результат прохождения теста</TableCell>
                             <TableCell>pValue</TableCell>
@@ -67,11 +68,12 @@ const StackOfBooksResultAnalysis: FC<IProps> = ({}) => {
                                     <TableRow key={indexEl}
                                               sx={{backgroundColor: el.passed ? "white" : 'rgba(255, 0, 0, 0.23)'}}>
                                         <TableCell>{indexEl + 1}</TableCell>
-                                        <TableCell>{el.chi}</TableCell>
+                                        <TableCell>{el.chi.toFixed(6)}</TableCell>
                                         <TableCell>{el.df}</TableCell>
+                                        <TableCell>{el.chiCritical}</TableCell>
                                         <TableCell>{el.frequencies.slice(0, 30).join(', ')}{el.frequencies.length > 30 ? '...' : ''}</TableCell>
                                         <TableCell>{el.passed ? 'Тест пройден' : 'Тест не пройден'}</TableCell>
-                                        <TableCell>{el.pValue}</TableCell>
+                                        <TableCell>{el.pValue.toFixed(6)}</TableCell>
                                         <TableCell>{el.resultPValue === 'SUCCESS' ? 'Тест пройден' : 'Тест не пройден'}</TableCell>
                                     </TableRow>
                                 )

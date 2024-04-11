@@ -1,0 +1,57 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    animation: fadeIn 2s ease; /* Анимация появления */
+}
+.home-container {
+    max-width: 100%;
+    height: calc(100vh - 90px - 4em);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Чтобы текст был читаемым */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.color-title-home {
+    color: #333;
+}
+.color-text-home {
+    color: #666;
+}
+/* Стили для заголовка */
+.header {
+    text-align: center;
+    padding: 20px 0;
+}
+/* Стили для основного контента */
+.main-content {
+    text-align: center;
+}
+/* Стили для кнопки */
+.cta-button {
+    display: inline-block;
+    background-color: #ff5722;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+.cta-button:hover {
+    background-color: #e64a19;
+}
+/* Анимация появления */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

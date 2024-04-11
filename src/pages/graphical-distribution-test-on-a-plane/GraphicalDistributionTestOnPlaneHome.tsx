@@ -21,7 +21,7 @@ function GraphicalDisTableRowibutionTestOnPlaneHome() {
             <header>
                 <h1 className={'gost'}>Графический тест "Распределение на плоскости"</h1>
                 <Button variant={'contained'} color={'primary'}
-                        onClick={() => navigate('/graph-disTableRowibution-test/generator-analysis/')}>
+                        onClick={() => navigate('/graph-distribution-test/generator-analysis/')}>
                     Анализировать сгенерированную последовательность
                 </Button>
             </header>

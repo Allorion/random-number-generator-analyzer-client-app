@@ -56,7 +56,7 @@ const HomeNistTests: FC<IProps> = ({}) => {
             <header>
                 <h1>Статистические тесты NIST</h1>
                 <Button variant={'contained'} color={'primary'}
-                        onClick={() => navigate('/nist-tests-legacy/generator-analysis/')}>
+                        onClick={() => navigate('/nist-tests/generator-analysis/')}>
                     Анализировать сгенерированную последовательность
                 </Button>
             </header>

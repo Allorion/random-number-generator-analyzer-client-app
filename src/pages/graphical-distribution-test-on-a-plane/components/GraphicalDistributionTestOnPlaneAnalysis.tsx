@@ -117,7 +117,7 @@ const GraphicalDistributionTestOnPlaneAnalysis: FC<IProps> = ({}) => {
     return (
         <React.Fragment>
             <header>
-                <h1>Анализ сгенерированной последовательности с помощью теста "Стопка книг"</h1>
+                <h1>Анализ сгенерированной последовательности с помощью графического тест "Распределение на плоскости"</h1>
             </header>
             <main className={'analysis-graph-distr-plane'}>
                 <ALPaper label={'Выбор файла для проверки'}>
