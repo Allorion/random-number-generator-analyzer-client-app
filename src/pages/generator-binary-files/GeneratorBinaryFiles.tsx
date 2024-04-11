@@ -1,5 +1,6 @@
 import React, {FC, useState} from "react";
 import "./static/css/GeneratorBinaryFiles.css"
+import {ALStack} from "../../allorion-ui";
 
 interface IProps {
 
@@ -11,13 +12,17 @@ interface IReqData {
     "method": string
 }
 
-type tpMethod = 'mtg' | 'mathRandGen' | 'cryptoSequence' | '#null'
+type tpMethod = 'mtg' | 'mathRandGen' | 'cryptoSequence' | 'linearCongruentialGenerator' | '#null'
 
 const GeneratorBinaryFiles: FC<IProps> = ({}) => {
 
     const [mtgLength, setMtgLength] = useState<number | undefined>(undefined)
     const [method, setMethod] = useState<tpMethod>('#null')
     const [frequency, setFrequency] = useState<number | undefined>(undefined)
+    const [modulus, setModulus] = useState<number | undefined>(undefined)
+    const [multiplier, setMultiplier] = useState<number | undefined>(undefined)
+    const [increment, setIncrement] = useState<number | undefined>(undefined)
+    const [seed, setSeed] = useState<number | undefined>(undefined)
     const [generation, setGeneration] = useState<{
         data: {
             "status": number,
@@ -58,11 +63,25 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
                 case 'cryptoSequence':
                     urlMethod = 'crypto-random-generate'
                     break
+                case 'linearCongruentialGenerator':
+                    urlMethod = 'linear-congruential-generator'
+                    break
             }
 
-            const obj = {
-                "length": mtgLength,
-                "frequency": frequency
+            const obj: {
+                length: number;
+                frequency: number | undefined;
+                modulus: number | undefined;
+                multiplier: number | undefined;
+                increment: number | undefined;
+                seed: number | undefined;
+            } = {
+                length: mtgLength,
+                frequency,
+                modulus,
+                multiplier,
+                increment,
+                seed
             }
 
             return await fetch(`http://localhost:3001/api/binary-sequence-generation/${urlMethod}`, {
@@ -76,8 +95,13 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
 
 
         fetchGenerationBinaryFile()
-            .then((resp) => {
-                alert('Выполнено')
+            .then(async (resp) => {
+                if (resp.status !== 500) {
+                    alert('Выполнено')
+                } else {
+                    const respJson = await resp.json()
+                    alert(respJson?.text)
+                }
             })
             .finally(() => {
                 setGeneration({...generation, flag: false})
@@ -108,6 +132,7 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
                             <option value={'mtg'}>Генерация файла методом Mersenne Twister 19937</option>
                             <option value={'mathRandGen'}>Генерация файла c заданной вероятностью</option>
                             <option value={'cryptoSequence'}>Генерация файла методом Сrypto</option>
+                            <option value={'linearCongruentialGenerator'}>Линейный конгруэнтный ГПСЧ (LCPRNG)</option>
                         </select>
                         <h3></h3>
                         <input
@@ -134,7 +159,6 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
                             <input
                                 placeholder={'Укажите частоту повторения символов от 0.1 до 1'}
                                 type={"number"}
-                                value={frequency}
                                 onBlur={(e) => {
                                     if (e.target.value !== '') {
                                         const num = +e.target.value
@@ -148,6 +172,76 @@ const GeneratorBinaryFiles: FC<IProps> = ({}) => {
                                     }
                                 }}
                             />
+                        }
+                        {
+                            method === 'linearCongruentialGenerator' &&
+                            <ALStack direction={'row'} spacing={2}>
+                                <input
+                                    placeholder={'Укажите модуль'}
+                                    type={"number"}
+                                    onBlur={(e) => {
+                                        if (e.target.value !== '') {
+                                            const num = +e.target.value
+                                            if (num >= 1) {
+                                                setModulus(num)
+                                            } else {
+                                                setModulus(1)
+                                            }
+                                        } else {
+                                            setModulus(undefined)
+                                        }
+                                    }}
+                                />
+                                <input
+                                    placeholder={'Укажите множитель'}
+                                    type={"number"}
+                                    onBlur={(e) => {
+                                        if (e.target.value !== '') {
+                                            const num = +e.target.value
+                                            if (num >= 1) {
+                                                setMultiplier(num)
+                                            } else {
+                                                setMultiplier(1)
+                                            }
+                                        } else {
+                                            setMultiplier(undefined)
+                                        }
+                                    }}
+                                />
+                                <input
+                                    placeholder={'Укажите приращение'}
+                                    type={"number"}
+                                    onBlur={(e) => {
+                                        if (e.target.value !== '') {
+                                            const num = +e.target.value
+                                            if (num >= 1) {
+                                                setIncrement(num)
+                                            } else {
+                                                setIncrement(1)
+                                            }
+                                        } else {
+                                            setIncrement(undefined)
+                                        }
+                                    }}
+                                />
+                                <input
+                                    placeholder={'Укажите начальное значение (семя)'}
+                                    type={"number"}
+                                    onBlur={(e) => {
+                                        if (e.target.value !== '') {
+                                            const num = +e.target.value
+                                            console.log(num)
+                                            if (num >= 1) {
+                                                setSeed(num)
+                                            } else {
+                                                setSeed(1)
+                                            }
+                                        } else {
+                                            setSeed(undefined)
+                                        }
+                                    }}
+                                />
+                            </ALStack>
                         }
                         <button
                             onClick={generateFile}

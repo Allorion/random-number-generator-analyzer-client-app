@@ -897,7 +897,7 @@ const ResultTests: FC<IProps> = ({}) => {
                 >
                     <Typography sx={{width: '70%', flexShrink: 0}}>
                         Serial Test (Комбинированная P-Value
-                        = {opt.combinePValue['serialTest'] !== undefined ? `${opt.combinePValue['serialTest'][0].toFixed(6)} ${opt.combinePValue['serialTest'][1].toFixed(6)}` : ''})
+                        = {opt.combinePValue['serialTest'] !== undefined ? `${opt?.combinePValue['serialTest'][0] !== null ? opt.combinePValue['serialTest'][0].toFixed(6) : opt.combinePValue['serialTest'][0]} ${opt.combinePValue['serialTest'][1] !== null ? opt.combinePValue['serialTest'][1].toFixed(6) : opt.combinePValue['serialTest'][1]}` : ''})
                     </Typography>
                     <Typography sx={{color: 'text.secondary'}}>
                         Выполнено тестов {opt.serialTest.length}
