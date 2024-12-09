@@ -1,6 +1,6 @@
 import {createEntityAdapter, createSlice, SerializedError} from "@reduxjs/toolkit";
 import {fetchCountRepeatsTest} from "../api/ACCountRepeatsTest";
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+import generateUniqueID from "../../../functions/generateUniqueID";
 
 export interface IDataResultCountRepeatsTest {
     result: Record<number, number>,

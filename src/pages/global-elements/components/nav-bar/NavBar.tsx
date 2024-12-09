@@ -69,7 +69,7 @@ const NavBar: FC<IProps> = ({}) => {
                         </Link>
                     </ul>
                 </div>
-                <div className={`nav-link ${url[1] === 'graph-distribution-test' ? 'active' : ''} dropdown`}>
+                {/* <div className={`nav-link ${url[1] === 'graph-distribution-test' ? 'active' : ''} dropdown`}>
                     Графический тест "Распределение на плоскости"
                     <ul className={'nav-link-dropdown'}>
                         <Link
@@ -106,7 +106,7 @@ const NavBar: FC<IProps> = ({}) => {
                             </li>
                         </Link>
                     </ul>
-                </div>
+                </div> */}
             </nav>
         </React.Fragment>
     )

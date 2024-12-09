@@ -1,6 +1,6 @@
 import {createEntityAdapter, createSlice, SerializedError} from "@reduxjs/toolkit";
 import {fetchAddGraphDistributionTestOnPlane} from "../api/ACAddGraphDistributionTestOnPlane";
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
+import generateUniqueID from "../../../functions/generateUniqueID";
 
 interface IGraphDistributionTestOnPlaneSlice {
     img: string,
